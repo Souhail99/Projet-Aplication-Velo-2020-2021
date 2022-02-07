@@ -1,0 +1,159 @@
+﻿<Page x:Class="bdd_projet.CreationVelo"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:bdd_projet"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="730"
+      Title="CreationVelo"
+      Loaded="Page_Loaded">
+    <Page.Resources>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="AllowDrop" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="border" CornerRadius="5" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                        <Condition Property="IsSelectionActive" Value="false"/>
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="SubmitButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" CornerRadius="15" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#3DA64B"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <StackPanel>
+            <Grid x:Name="form" Height="370">
+                <StackPanel>
+                    <TextBox x:Name="num" Text="N° du produit" Height="25" Width="290" TextAlignment="Left" KeyDown="KeyEnter" Padding="7,2.5,0,0"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" GotFocus="num_GotFocus"
+                     Foreground="DarkGray" LostFocus="num_LostFocus" Style="{DynamicResource TextBoxStyle}" TextChanged="num_TextChanged"/>
+
+                    <TextBox x:Name="nom" Text="Nom du produit" Height="25" Width="290" TextAlignment="Left" Style="{DynamicResource TextBoxStyle}"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" GotFocus="nom_GotFocus"
+                     Foreground="DarkGray" LostFocus="nom_LostFocus" KeyDown="KeyEnter" Padding="7,2.5,0,0"/>
+
+                    <TextBox x:Name="grandeur" Text="Grandeur" Height="25" Width="290" TextAlignment="Left" Style="{DynamicResource TextBoxStyle}"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" GotFocus="grandeur_GotFocus"
+                     Foreground="DarkGray" LostFocus="grandeur_LostFocus" KeyDown="KeyEnter" Padding="7,2.5,0,0"/>
+
+                    <TextBlock Text="De la forme Adultes / Jeunes / Hommes / Dames / Filles / Garçons" HorizontalAlignment="Center" FontSize="10"/>
+
+                    <TextBox x:Name="prix" Text="Prix" Height="25" Width="290" TextAlignment="Left" Style="{DynamicResource TextBoxStyle}"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,8,0,0" GotFocus="prix_GotFocus" Padding="7,2.5,0,0"
+                     Foreground="DarkGray" LostFocus="prix_LostFocus" KeyDown="KeyEnter"/>
+
+                    <TextBox x:Name="type" Text="Type" Height="25" Width="290" TextAlignment="Left" Style="{DynamicResource TextBoxStyle}"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" GotFocus="type_GotFocus" Padding="7,2.5,0,0" 
+                     Foreground="DarkGray" LostFocus="type_LostFocus" KeyDown="KeyEnter"/>
+
+                    <TextBlock Text="De la forme VTT / Vélo de course / Classique / BMX" HorizontalAlignment="Center" FontSize="10" Margin="0,0,65,0"/>
+
+                    <TextBox x:Name="dateIntro" Text="Date d'introduction" Height="25" Width="290" TextAlignment="Left" KeyDown="KeyEnter"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,8,0,0" GotFocus="dateIntro_GotFocus" Padding="7,2.5,0,0"
+                     Foreground="DarkGray" LostFocus="dateIntro_LostFocus" Style="{DynamicResource TextBoxStyle}"/>
+
+                    <TextBlock Text="Les dates doivent être au format yyyy-mm-dd" HorizontalAlignment="Center" FontSize="10" Margin="0,0,90,0"/>
+
+                    <TextBox x:Name="dateDisc" Text="Date discontinuité" Height="25" Width="290" TextAlignment="Left" KeyDown="KeyEnter"
+                     HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,8,0,0" GotFocus="dateDisc_GotFocus" Padding="7,2.5,0,0"
+                     Foreground="DarkGray" Style="{DynamicResource TextBoxStyle}" LostFocus="dateDisc_LostFocus"/>
+
+                    <TextBlock Text="Laisser vide si toujours en production" HorizontalAlignment="Center" FontSize="10" Margin="0,0,125,0"/>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="Bouton">
+                <Button x:Name="Submit" Content="Soumettre" Width="140" Height="40" FontFamily="Trebuchet MS" FontSize ="18"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,-8,50,0" Click="Submit_Click"
+                    Cursor="Hand" Style="{DynamicResource SubmitButtonStyle}" BorderBrush="Transparent"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
